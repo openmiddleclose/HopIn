@@ -148,7 +148,7 @@ export default function Home() {
   };
 
   return (
-    <Box fontFamily="'Cinzel', serif">
+    <Box fontFamily="'Cinzel', serif" pt="120px"> {/* <-- Added padding to push content below navbar */}
 
       {/* HERO SECTION */}
       <MotionFlex
