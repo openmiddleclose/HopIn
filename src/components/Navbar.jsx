@@ -12,12 +12,18 @@ import {
   MenuItem,
   IconButton,
   Collapse,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { ChevronDownIcon, HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => setIsOpen(!isOpen);
+
+  // Dynamic colors for light/dark mode
+  const menuBg = useColorModeValue("white", "gray.800");
+  const menuItemHoverBg = useColorModeValue("gray.100", "gray.700");
+  const menuItemColor = useColorModeValue("gray.800", "white");
 
   return (
     <Box
@@ -90,41 +96,24 @@ export default function Navbar() {
             >
               How it works
             </MenuButton>
-            <MenuList bg="teal.600" border="1px solid white" color="white">
+            <MenuList bg={menuBg} border="1px solid white" color={menuItemColor}>
               <Link to="/drivers">
-                <MenuItem bg="teal.600" _hover={{ bg: "teal.700" }}>
-                  For Drivers
-                </MenuItem>
+                <MenuItem _hover={{ bg: menuItemHoverBg }}>For Drivers</MenuItem>
               </Link>
-
               <Link to="/passengers">
-                <MenuItem bg="teal.600" _hover={{ bg: "teal.700" }}>
-                  For Passengers
-                </MenuItem>
+                <MenuItem _hover={{ bg: menuItemHoverBg }}>For Passengers</MenuItem>
               </Link>
-
               <Link to="/passenger-guidelines">
-                <MenuItem bg="teal.600" _hover={{ bg: "teal.700" }}>
-                  Passenger Guidelines
-                </MenuItem>
+                <MenuItem _hover={{ bg: menuItemHoverBg }}>Passenger Guidelines</MenuItem>
               </Link>
-
               <Link to="/students">
-                <MenuItem bg="teal.600" _hover={{ bg: "teal.700" }}>
-                  For Students
-                </MenuItem>
+                <MenuItem _hover={{ bg: menuItemHoverBg }}>For Students</MenuItem>
               </Link>
-
               <Link to="/trust-and-safety">
-                <MenuItem bg="teal.600" _hover={{ bg: "teal.700" }}>
-                  Trust & Safety
-                </MenuItem>
+                <MenuItem _hover={{ bg: menuItemHoverBg }}>Trust & Safety</MenuItem>
               </Link>
-
               <Link to="/sustainability">
-                <MenuItem bg="teal.600" _hover={{ bg: "teal.700" }}>
-                  Sustainability
-                </MenuItem>
+                <MenuItem _hover={{ bg: menuItemHoverBg }}>Sustainability</MenuItem>
               </Link>
             </MenuList>
           </Menu>
@@ -178,13 +167,13 @@ export default function Navbar() {
             >
               How it works
             </MenuButton>
-            <MenuList bg="teal.600" border="1px solid white">
-              <Link to="/drivers"><MenuItem>For Drivers</MenuItem></Link>
-              <Link to="/passengers"><MenuItem>For Passengers</MenuItem></Link>
-              <Link to="/passenger-guidelines"><MenuItem>Passenger Guidelines</MenuItem></Link>
-              <Link to="/students"><MenuItem>For Students</MenuItem></Link>
-              <Link to="/trust-and-safety"><MenuItem>Trust & Safety</MenuItem></Link>
-              <Link to="/sustainability"><MenuItem>Sustainability</MenuItem></Link>
+            <MenuList bg={menuBg} color={menuItemColor} border="1px solid white">
+              <Link to="/drivers"><MenuItem _hover={{ bg: menuItemHoverBg }}>For Drivers</MenuItem></Link>
+              <Link to="/passengers"><MenuItem _hover={{ bg: menuItemHoverBg }}>For Passengers</MenuItem></Link>
+              <Link to="/passenger-guidelines"><MenuItem _hover={{ bg: menuItemHoverBg }}>Passenger Guidelines</MenuItem></Link>
+              <Link to="/students"><MenuItem _hover={{ bg: menuItemHoverBg }}>For Students</MenuItem></Link>
+              <Link to="/trust-and-safety"><MenuItem _hover={{ bg: menuItemHoverBg }}>Trust & Safety</MenuItem></Link>
+              <Link to="/sustainability"><MenuItem _hover={{ bg: menuItemHoverBg }}>Sustainability</MenuItem></Link>
             </MenuList>
           </Menu>
 
