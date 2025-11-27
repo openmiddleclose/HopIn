@@ -70,17 +70,12 @@ export default function Navbar() {
           </Link>
         </Flex>
 
-        {/* CENTER — HopIn TEXT */}
-        <Flex
-          flex="1"
-          justify="center"
-          px={4}
-          minW={{ base: 0, md: "auto" }}
-        >
+        {/* CENTER — HopIn TEXT ALWAYS VISIBLE */}
+        <Flex flex="1" justify="center" px={4} minW={{ base: 0, md: "auto" }}>
           <Link to="/" style={{ textDecoration: "none" }}>
             <Text
               fontFamily="'Bevan', cursive"
-              fontSize={{ base: "xl", md: "3xl" }}
+              fontSize={{ base: "2xl", md: "3xl" }}
               fontWeight="bold"
               textAlign="center"
               whiteSpace="nowrap"
