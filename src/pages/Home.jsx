@@ -148,7 +148,7 @@ export default function Home() {
   };
 
   return (
-    <Box fontFamily="'Cinzel', serif" pt="120px"> {/* <-- Added padding to push content below navbar */}
+    <Box fontFamily="'Cinzel', serif" pt="120px">
 
       {/* HERO SECTION */}
       <MotionFlex
@@ -163,12 +163,18 @@ export default function Home() {
         py={{ base: 20, md: 28 }}
         px={{ base: 4, md: 12 }}
       >
-        <MotionBox flex="1" textAlign={{ base: "center", md: "left" }} mb={{ base: 10, md: 0 }}
+        {/* HERO LEFT */}
+        <MotionBox
+          flex="1"
+          textAlign={{ base: "center", md: "left" }}
+          mb={{ base: 10, md: 0 }}
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1 }}
         >
-          <Heading fontSize={{ base: "3xl", md: "5xl" }} mb={4} textShadow="0 2px 4px rgba(0,0,0,0.3)">Carpooling for everyone</Heading>
+          <Heading fontSize={{ base: "3xl", md: "5xl" }} mb={4} textShadow="0 2px 4px rgba(0,0,0,0.3)">
+            Carpooling for everyone
+          </Heading>
           <Text fontSize={{ base: "md", md: "xl" }} mb={6} maxW="2xl" fontWeight="semibold">
             Join thousands of people who choose HopIn to carpool between cities.
           </Text>
@@ -211,7 +217,13 @@ export default function Home() {
                   borderColor={inputBorder}
                   boxShadow="md"
                 >
-                  {date ? date.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" }) : "Select date"}
+                  {date
+                    ? date.toLocaleDateString(undefined, {
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric",
+                      })
+                    : "Select date"}
                 </Button>
               </PopoverTrigger>
               <PopoverContent w="fit-content" bg={useColorModeValue("white", "gray.800")} color={textColor}>
@@ -223,13 +235,7 @@ export default function Home() {
               </PopoverContent>
             </Popover>
 
-            <Button
-              colorScheme="orange"
-              size="md"
-              borderRadius="lg"
-              shadow="md"
-              onClick={handleSearch}
-            >
+            <Button colorScheme="orange" size="md" borderRadius="lg" shadow="md" onClick={handleSearch}>
               Find a Ride
             </Button>
           </HStack>
@@ -247,6 +253,7 @@ export default function Home() {
           </Button>
         </MotionBox>
 
+        {/* HERO RIGHT */}
         <MotionBox flex="1" display="flex" justifyContent="center">
           <MotionImage
             src="/images/carpool-hero.png"
@@ -296,13 +303,27 @@ export default function Home() {
         transition={{ duration: 0.8 }}
       >
         <MotionBox flex="1" mb={{ base: 8, md: 0 }}>
-          <Heading fontSize={{ base: "2xl", md: "4xl" }} mb={4}>Be a driver</Heading>
+          <Heading fontSize={{ base: "2xl", md: "4xl" }} mb={4}>
+            Be a driver
+          </Heading>
           <Text fontSize={{ base: "md", md: "lg" }} mb={6} maxW="2xl" fontWeight="semibold">
-            Drivers save an average of <b>$250</b> every month by carpooling with HopIn. Share your seats and earn while helping others travel.
+            Drivers save an average of <b>$250</b> every month by carpooling with HopIn. Share your seats and earn while
+            helping others travel.
           </Text>
           <HStack spacing={4} flexWrap="wrap">
-            <Button colorScheme="orange" size="md" borderRadius="lg" shadow="md" onClick={() => navigate("/create-trip")}>Post your trip</Button>
-            <Button variant="outline" borderColor={useColorModeValue("gray.800", "gray.300")} color={useColorModeValue("gray.800", "gray.300")} size="md" borderRadius="lg" onClick={() => navigate("/drivers")}>Find out more</Button>
+            <Button colorScheme="orange" size="md" borderRadius="lg" shadow="md" onClick={() => navigate("/create-trip")}>
+              Post your trip
+            </Button>
+            <Button
+              variant="outline"
+              borderColor={useColorModeValue("gray.800", "gray.300")}
+              color={useColorModeValue("gray.800", "gray.300")}
+              size="md"
+              borderRadius="lg"
+              onClick={() => navigate("/drivers")}
+            >
+              Find out more
+            </Button>
           </HStack>
         </MotionBox>
 
@@ -328,9 +349,23 @@ export default function Home() {
             { title: "Super easy to book", desc: "Find a ride, book in minutes, and travel for less — all online.", icon: CheckCircleIcon },
             { title: "Be a driver", desc: "Earn by sharing seats on trips you were already going to take.", icon: TimeIcon },
           ].map((feature, idx) => (
-            <MotionBox key={idx} p={6} bg={cardBg} shadow="md" borderRadius="xl" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ duration: 0.5, delay: idx * 0.2 }} whileHover={{ scale: 1.03, y: -3 }}>
+            <MotionBox
+              key={idx}
+              p={6}
+              bg={cardBg}
+              shadow="md"
+              borderRadius="xl"
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: idx * 0.2 }}
+              whileHover={{ scale: 1.03, y: -3 }}
+            >
               <Icon as={feature.icon} w={10} h={10} color="teal.400" mb={3} />
-              <Heading fontSize="xl" mb={2} color={headingColor}>{feature.title}</Heading>
+              <Heading fontSize="xl" mb={2} color={headingColor}>
+                {feature.title}
+              </Heading>
               <Text color={textColor}>{feature.desc}</Text>
             </MotionBox>
           ))}
@@ -339,50 +374,86 @@ export default function Home() {
 
       {/* POPULAR RIDES */}
       <MotionBox py={16} px={6} initial="hidden" whileInView="visible" variants={fadeUp} viewport={{ once: true }} transition={{ duration: 0.6 }}>
-        <Heading textAlign="center" mb={10} color="teal.400" fontSize={{ base: "2xl", md: "3xl" }}>Popular Rides</Heading>
+        <Heading textAlign="center" mb={10} color="teal.400" fontSize={{ base: "2xl", md: "3xl" }}>
+          Popular Rides
+        </Heading>
         <Container maxW="container.xl">
           {trips.length > 0 ? (
             <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={6}>
-              {trips.map((trip) => (<TripCard key={trip.id} trip={trip} />))}
+              {trips.map((trip) => (
+                <TripCard key={trip.id} trip={trip} />
+              ))}
             </SimpleGrid>
           ) : (
-            <Text textAlign="center" color={textColor}>No trips available at the moment.</Text>
+            <Text textAlign="center" color={textColor}>
+              No trips available at the moment.
+            </Text>
           )}
         </Container>
       </MotionBox>
 
       {/* TESTIMONIALS */}
       <Box py={16} px={6} bg={featuresBg}>
-        <Heading textAlign="center" mb={10} fontSize={{ base: "2xl", md: "3xl" }} color={headingColor}>What people say about us</Heading>
+        <Heading textAlign="center" mb={10} fontSize={{ base: "2xl", md: "3xl" }} color={headingColor}>
+          What people say about us
+        </Heading>
         {loadingReviews ? (
-          <Flex justify="center"><Spinner size="lg" /></Flex>
+          <Flex justify="center">
+            <Spinner size="lg" />
+          </Flex>
         ) : (
           <>
             <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={6}>
               {reviews.map((r, idx) => (
-                <MotionVStack key={r.id} bg={cardBg} p={5} shadow="md" borderRadius="xl" spacing={4} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ duration: 0.5, delay: idx * 0.2 }}>
+                <MotionVStack
+                  key={r.id}
+                  bg={cardBg}
+                  p={5}
+                  shadow="md"
+                  borderRadius="xl"
+                  spacing={4}
+                  variants={fadeUp}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: idx * 0.2 }}
+                >
                   <Flex align="center" w="full">
                     <Avatar name={r.name} size="sm" mr={3} />
                     <Box>
-                      <Text fontWeight="bold" color={headingColor}>{r.name}</Text>
-                      <Text fontSize="sm" color={useColorModeValue("gray.500", "gray.400")}>{new Date(r.date).toLocaleDateString()}</Text>
+                      <Text fontWeight="bold" color={headingColor}>
+                        {r.name}
+                      </Text>
+                      <Text fontSize="sm" color={useColorModeValue("gray.500", "gray.400")}>
+                        {new Date(r.date).toLocaleDateString()}
+                      </Text>
                     </Box>
                   </Flex>
-                  <Flex>{[1,2,3,4,5].map(i => <StarIcon key={i} color={i <= r.rating ? "orange.400" : "gray.300"} />)}</Flex>
-                  <Text color={textColor} textAlign="center">{r.text}</Text>
+                  <Flex>{[1, 2, 3, 4, 5].map((i) => <StarIcon key={i} color={i <= r.rating ? "orange.400" : "gray.300"} />)}</Flex>
+                  <Text color={textColor} textAlign="center">
+                    {r.text}
+                  </Text>
                 </MotionVStack>
               ))}
             </SimpleGrid>
 
             <Flex justify="center" mt={6} gap={4}>
-              {reviewsLimit < 8 && <Button onClick={() => setReviewsLimit(reviewsLimit + 4)} colorScheme="orange">Load More</Button>}
-              {reviewsLimit > 4 && <Button onClick={() => setReviewsLimit(reviewsLimit - 4)} variant="outline" colorScheme="orange">Load Less</Button>}
+              {reviewsLimit < 8 && (
+                <Button onClick={() => setReviewsLimit(reviewsLimit + 4)} colorScheme="orange">
+                  Load More
+                </Button>
+              )}
+              {reviewsLimit > 4 && (
+                <Button onClick={() => setReviewsLimit(reviewsLimit - 4)} variant="outline" colorScheme="orange">
+                  Load Less
+                </Button>
+              )}
             </Flex>
           </>
         )}
       </Box>
 
-      {/* CALL TO ACTION SECTION */}
+      {/* CALL TO ACTION */}
       <MotionFlex
         direction="column"
         align="center"
@@ -396,18 +467,15 @@ export default function Home() {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        <Heading mb={4} fontSize={{ base: "2xl", md: "4xl" }}>We’d love to have you carpool with us!</Heading>
+        <Heading mb={4} fontSize={{ base: "2xl", md: "4xl" }}>
+          We’d love to have you carpool with us!
+        </Heading>
         <Text fontSize={{ base: "md", md: "lg" }} mb={6} maxW="2xl" fontWeight="semibold">
           Join thousands of people who share rides and travel smarter.
         </Text>
 
         <Stack direction={{ base: "column", md: "row" }} spacing={4}>
-          <Button
-            colorScheme="orange"
-            size="lg"
-            borderRadius="lg"
-            onClick={() => navigate("/search-trips")}
-          >
+          <Button colorScheme="orange" size="lg" borderRadius="lg" onClick={() => navigate("/search-trips")}>
             Find a Ride
           </Button>
 
@@ -423,35 +491,6 @@ export default function Home() {
           </Button>
         </Stack>
       </MotionFlex>
-
-      {/* FOOTER */}
-      <Box bg={useColorModeValue("gray.100", "gray.900")} color={useColorModeValue("gray.700", "gray.200")} py={10} px={6} mt={12}>
-        <Container maxW="container.xl">
-          <SimpleGrid columns={{ base: 1, md: 3 }} spacing={10}>
-            <Box>
-              <Heading fontSize="lg" mb={4}>HopIn</Heading>
-              <Text>Carpooling made simple. Save money, meet new people, and travel smarter.</Text>
-            </Box>
-
-            <Box>
-              <Heading fontSize="lg" mb={4}>Links</Heading>
-              <VStack align="start">
-                <Link href="/search-trips">Find a Ride</Link>
-                <Link href="/create-trip">Post a Trip</Link>
-                <Link href="/drivers">For Drivers</Link>
-                <Link href="/about">About Us</Link>
-              </VStack>
-            </Box>
-
-            <Box>
-              <Heading fontSize="lg" mb={4}>Contact</Heading>
-              <Text>Email: support@hopin.com</Text>
-              <Text>Phone: +1 234 567 890</Text>
-              <Text>© {new Date().getFullYear()} HopIn. All rights reserved.</Text>
-            </Box>
-          </SimpleGrid>
-        </Container>
-      </Box>
 
     </Box>
   );
