@@ -7,7 +7,6 @@ import Footer from "./components/Footer.jsx";
 import SupportChat from "./components/SupportChat.jsx";
 import { supabase } from "./hooks/useSupabase.js";
 import { LanguageProvider } from "./contexts/LanguageContext.jsx";
-import AutoTranslator from "./contexts/AutoTranslator.jsx"; // <-- new wrapper
 
 // Pages
 import Home from "./pages/Home.jsx";
@@ -119,64 +118,58 @@ function ProtectedAdminRoute({ children }) {
 export default function App() {
   return (
     <LanguageProvider>
-      <AutoTranslator>
-        {/* Navbar always visible */}
-        <Navbar />
+      <Navbar />
 
-        {/* App Routes */}
-        <Routes>
-          {/* Public */}
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/verify-email" element={<VerifyEmail />} />
+      <Routes>
+        {/* Public */}
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/verify-email" element={<VerifyEmail />} />
 
-          {/* Onboarding */}
-          <Route path="/onboarding" element={<Onboarding />} />
-          <Route path="/onboarding-profile-picture" element={<OnboardingProfilePicture />} />
-          <Route path="/onboarding-profile-description" element={<OnboardingProfileDescription />} />
-          <Route path="/onboarding-agreement" element={<OnboardingCommunityAgreement />} />
-          <Route path="/onboarding/driver-license" element={<OnboardingDriverLicense />} />
+        {/* Onboarding */}
+        <Route path="/onboarding" element={<Onboarding />} />
+        <Route path="/onboarding-profile-picture" element={<OnboardingProfilePicture />} />
+        <Route path="/onboarding-profile-description" element={<OnboardingProfileDescription />} />
+        <Route path="/onboarding-agreement" element={<OnboardingCommunityAgreement />} />
+        <Route path="/onboarding/driver-license" element={<OnboardingDriverLicense />} />
 
-          {/* Protected User */}
-          <Route
-            path="/dashboard"
-            element={<ProtectedUserRoute><Dashboard /></ProtectedUserRoute>}
-          />
+        {/* Protected User */}
+        <Route
+          path="/dashboard"
+          element={<ProtectedUserRoute><Dashboard /></ProtectedUserRoute>}
+        />
 
-          {/* Protected Admin */}
-          <Route
-            path="/admin-dashboard"
-            element={<ProtectedAdminRoute><AdminDashboard /></ProtectedAdminRoute>}
-          />
+        {/* Protected Admin */}
+        <Route
+          path="/admin-dashboard"
+          element={<ProtectedAdminRoute><AdminDashboard /></ProtectedAdminRoute>}
+        />
 
-          {/* Trips */}
-          <Route path="/create-trip" element={<CreateTrip />} />
-          <Route path="/search-trips" element={<SearchTrips />} />
-          <Route path="/trip/:id" element={<TripDetail />} />
+        {/* Trips */}
+        <Route path="/create-trip" element={<CreateTrip />} />
+        <Route path="/search-trips" element={<SearchTrips />} />
+        <Route path="/trip/:id" element={<TripDetail />} />
 
-          {/* Other Pages */}
-          <Route path="/drivers" element={<Drivers />} />
-          <Route path="/passengers" element={<Passengers />} />
-          <Route path="/students" element={<Students />} />
-          <Route path="/students/:universityName" element={<UniversityPage />} />
-          <Route path="/trust-and-safety" element={<TrustSafety />} />
-          <Route path="/sustainability" element={<Sustainability />} />
-          <Route path="/legal-compliant" element={<LegalCompliant />} />
-          <Route path="/passenger-guidelines" element={<PassengerGuidelines />} />
+        {/* Other Pages */}
+        <Route path="/drivers" element={<Drivers />} />
+        <Route path="/passengers" element={<Passengers />} />
+        <Route path="/students" element={<Students />} />
+        <Route path="/students/:universityName" element={<UniversityPage />} />
+        <Route path="/trust-and-safety" element={<TrustSafety />} />
+        <Route path="/sustainability" element={<Sustainability />} />
+        <Route path="/legal-compliant" element={<LegalCompliant />} />
+        <Route path="/passenger-guidelines" element={<PassengerGuidelines />} />
 
-          {/* Legal */}
-          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-          <Route path="/terms-of-service" element={<TermsOfService />} />
-          <Route path="/driver-cancellation" element={<DriverCancellationPolicy />} />
-        </Routes>
+        {/* Legal */}
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms-of-service" element={<TermsOfService />} />
+        <Route path="/driver-cancellation" element={<DriverCancellationPolicy />} />
+      </Routes>
 
-        {/* Footer */}
-        <Footer />
+      <Footer />
 
-        {/* Floating support chat */}
-        <SupportChat tripId={null} />
-      </AutoTranslator>
+      <SupportChat tripId={null} />
     </LanguageProvider>
   );
 }
