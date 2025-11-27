@@ -1,3 +1,4 @@
+// src/components/Navbar.jsx
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -15,12 +16,15 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { ChevronDownIcon, HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
+import { useLanguage } from "../contexts/LanguageContext.jsx";
+import { translate } from "../utils/translate.js";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => setIsOpen(!isOpen);
 
-  // Dynamic colors for light/dark mode
+  const { language } = useLanguage();
+
   const menuBg = useColorModeValue("white", "gray.800");
   const menuItemHoverBg = useColorModeValue("gray.100", "gray.700");
   const menuItemColor = useColorModeValue("gray.800", "white");
@@ -28,7 +32,6 @@ export default function Navbar() {
   return (
     <Box
       bg="teal.500"
-      p={4}
       color="white"
       boxShadow="lg"
       position="fixed"
@@ -37,28 +40,87 @@ export default function Navbar() {
       width="100%"
       zIndex="1000"
     >
-      {/* TOP BAR */}
-      <Flex justify="space-between" align="center">
+      <Flex
+        align="center"
+        justify="space-between"
+        px={4}
+        py={3}
+        wrap="wrap"
+        maxW="1200px"
+        mx="auto"
+      >
         {/* LEFT — LOGO */}
-        <Link to="/">
-          <Image
-            src="/images/bunny-logo.png"
-            alt="App Logo"
-            width="80px"
-            height="auto"
-            cursor="pointer"
-            border="3px solid black"
-            borderRadius="12px"
-            boxShadow="0 0 10px rgba(255,255,255,0.6)"
-            transition="0.3s ease"
-            _hover={{
-              transform: "scale(1.1)",
-              boxShadow: "0 0 18px rgba(255,255,255,0.9)",
-            }}
-          />
-        </Link>
+        <Flex align="center">
+          <Link to="/">
+            <Image
+              src="/images/bunny-logo.png"
+              alt="App Logo"
+              width="80px"
+              height="auto"
+              cursor="pointer"
+              border="3px solid black"
+              borderRadius="12px"
+              boxShadow="0 0 10px rgba(255,255,255,0.6)"
+              transition="0.3s ease"
+              _hover={{
+                transform: "scale(1.1)",
+                boxShadow: "0 0 18px rgba(255,255,255,0.9)",
+              }}
+            />
+          </Link>
+        </Flex>
 
-        {/* HAMBURGER BUTTON — MOBILE ONLY */}
+        {/* CENTER — HopIn TEXT */}
+        <Flex
+          flex="1"
+          justify="center"
+          px={4}
+          minW={{ base: 0, md: "auto" }}
+        >
+          <Link to="/" style={{ textDecoration: "none" }}>
+            <Text
+              fontFamily="'Bevan', cursive"
+              fontSize={{ base: "xl", md: "3xl" }}
+              fontWeight="bold"
+              textAlign="center"
+              whiteSpace="nowrap"
+              overflow="hidden"
+              textOverflow="ellipsis"
+              textShadow="0 2px 4px rgba(0,0,0,0.3)"
+              cursor="pointer"
+            >
+              <span style={{ color: "azure" }}>Hop</span>
+              <span style={{ color: "black" }}>In</span>
+            </Text>
+          </Link>
+        </Flex>
+
+        {/* RIGHT — FULL NAV DESKTOP */}
+        <Flex align="center" display={{ base: "none", md: "flex" }} gap={4}>
+          <Link to="/"><Button variant="ghost" color="white">{translate("Home", language)}</Button></Link>
+          <Link to="/search-trips"><Button variant="ghost" color="white">{translate("Search Trips", language)}</Button></Link>
+          <Link to="/create-trip"><Button variant="ghost" color="white">{translate("Create Trip", language)}</Button></Link>
+
+          <Menu>
+            <MenuButton as={Button} variant="ghost" color="white" rightIcon={<ChevronDownIcon />}>
+              {translate("How it works", language)}
+            </MenuButton>
+            <MenuList bg={menuBg} border="1px solid white" color={menuItemColor}>
+              <Link to="/drivers"><MenuItem _hover={{ bg: menuItemHoverBg }}>{translate("For Drivers", language)}</MenuItem></Link>
+              <Link to="/passengers"><MenuItem _hover={{ bg: menuItemHoverBg }}>{translate("For Passengers", language)}</MenuItem></Link>
+              <Link to="/passenger-guidelines"><MenuItem _hover={{ bg: menuItemHoverBg }}>{translate("Passenger Guidelines", language)}</MenuItem></Link>
+              <Link to="/students"><MenuItem _hover={{ bg: menuItemHoverBg }}>{translate("For Students", language)}</MenuItem></Link>
+              <Link to="/trust-and-safety"><MenuItem _hover={{ bg: menuItemHoverBg }}>{translate("Trust & Safety", language)}</MenuItem></Link>
+              <Link to="/sustainability"><MenuItem _hover={{ bg: menuItemHoverBg }}>{translate("Sustainability", language)}</MenuItem></Link>
+            </MenuList>
+          </Menu>
+
+          <Link to="/dashboard"><Button variant="ghost" color="white">{translate("Dashboard", language)}</Button></Link>
+          <Link to="/login"><Button variant="outline" color="white" borderColor="white">{translate("Login", language)}</Button></Link>
+          <Link to="/signup"><Button variant="solid" color="teal.500" bg="white" _hover={{ bg: "gray.200" }}>{translate("Signup", language)}</Button></Link>
+        </Flex>
+
+        {/* MOBILE HAMBURGER */}
         <IconButton
           display={{ base: "flex", md: "none" }}
           icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
@@ -68,164 +130,39 @@ export default function Navbar() {
           borderColor="white"
           aria-label="Toggle navigation"
         />
-
-        {/* RIGHT — FULL NAV (DESKTOP ONLY) */}
-        <Flex
-          gap={4}
-          align="center"
-          display={{ base: "none", md: "flex" }}
-        >
-          <Link to="/">
-            <Button variant="ghost" color="white">Home</Button>
-          </Link>
-
-          <Link to="/search-trips">
-            <Button variant="ghost" color="white">Search Trips</Button>
-          </Link>
-
-          <Link to="/create-trip">
-            <Button variant="ghost" color="white">Create Trip</Button>
-          </Link>
-
-          <Menu>
-            <MenuButton
-              as={Button}
-              variant="ghost"
-              color="white"
-              rightIcon={<ChevronDownIcon />}
-            >
-              How it works
-            </MenuButton>
-            <MenuList bg={menuBg} border="1px solid white" color={menuItemColor}>
-              <Link to="/drivers">
-                <MenuItem _hover={{ bg: menuItemHoverBg }}>For Drivers</MenuItem>
-              </Link>
-              <Link to="/passengers">
-                <MenuItem _hover={{ bg: menuItemHoverBg }}>For Passengers</MenuItem>
-              </Link>
-              <Link to="/passenger-guidelines">
-                <MenuItem _hover={{ bg: menuItemHoverBg }}>Passenger Guidelines</MenuItem>
-              </Link>
-              <Link to="/students">
-                <MenuItem _hover={{ bg: menuItemHoverBg }}>For Students</MenuItem>
-              </Link>
-              <Link to="/trust-and-safety">
-                <MenuItem _hover={{ bg: menuItemHoverBg }}>Trust & Safety</MenuItem>
-              </Link>
-              <Link to="/sustainability">
-                <MenuItem _hover={{ bg: menuItemHoverBg }}>Sustainability</MenuItem>
-              </Link>
-            </MenuList>
-          </Menu>
-
-          <Link to="/dashboard">
-            <Button variant="ghost" color="white">Dashboard</Button>
-          </Link>
-
-          <Link to="/login">
-            <Button variant="outline" color="white" borderColor="white">
-              Login
-            </Button>
-          </Link>
-
-          <Link to="/signup">
-            <Button variant="solid" color="teal.500" bg="white" _hover={{ bg: "gray.200" }}>
-              Signup
-            </Button>
-          </Link>
-        </Flex>
       </Flex>
 
-      {/* MOBILE NAV — COLLAPSIBLE */}
+      {/* MOBILE COLLAPSE */}
       <Collapse in={isOpen} animateOpacity>
         <Box
-          mt={4}
           display={{ base: "block", md: "none" }}
           bg="teal.600"
           p={3}
           borderRadius="md"
         >
-          <Link to="/">
-            <Button w="100%" variant="ghost" color="white">Home</Button>
-          </Link>
+          <Link to="/"><Button w="100%" variant="ghost" color="white">{translate("Home", language)}</Button></Link>
+          <Link to="/search-trips"><Button w="100%" variant="ghost" color="white">{translate("Search Trips", language)}</Button></Link>
+          <Link to="/create-trip"><Button w="100%" variant="ghost" color="white">{translate("Create Trip", language)}</Button></Link>
 
-          <Link to="/search-trips">
-            <Button w="100%" variant="ghost" color="white">Search Trips</Button>
-          </Link>
-
-          <Link to="/create-trip">
-            <Button w="100%" variant="ghost" color="white">Create Trip</Button>
-          </Link>
-
-          {/* MOBILE DROPDOWN */}
           <Menu isLazy>
-            <MenuButton
-              as={Button}
-              w="100%"
-              variant="ghost"
-              rightIcon={<ChevronDownIcon />}
-            >
-              How it works
+            <MenuButton as={Button} w="100%" variant="ghost" rightIcon={<ChevronDownIcon />}>
+              {translate("How it works", language)}
             </MenuButton>
             <MenuList bg={menuBg} color={menuItemColor} border="1px solid white">
-              <Link to="/drivers"><MenuItem _hover={{ bg: menuItemHoverBg }}>For Drivers</MenuItem></Link>
-              <Link to="/passengers"><MenuItem _hover={{ bg: menuItemHoverBg }}>For Passengers</MenuItem></Link>
-              <Link to="/passenger-guidelines"><MenuItem _hover={{ bg: menuItemHoverBg }}>Passenger Guidelines</MenuItem></Link>
-              <Link to="/students"><MenuItem _hover={{ bg: menuItemHoverBg }}>For Students</MenuItem></Link>
-              <Link to="/trust-and-safety"><MenuItem _hover={{ bg: menuItemHoverBg }}>Trust & Safety</MenuItem></Link>
-              <Link to="/sustainability"><MenuItem _hover={{ bg: menuItemHoverBg }}>Sustainability</MenuItem></Link>
+              <Link to="/drivers"><MenuItem _hover={{ bg: menuItemHoverBg }}>{translate("For Drivers", language)}</MenuItem></Link>
+              <Link to="/passengers"><MenuItem _hover={{ bg: menuItemHoverBg }}>{translate("For Passengers", language)}</MenuItem></Link>
+              <Link to="/passenger-guidelines"><MenuItem _hover={{ bg: menuItemHoverBg }}>{translate("Passenger Guidelines", language)}</MenuItem></Link>
+              <Link to="/students"><MenuItem _hover={{ bg: menuItemHoverBg }}>{translate("For Students", language)}</MenuItem></Link>
+              <Link to="/trust-and-safety"><MenuItem _hover={{ bg: menuItemHoverBg }}>{translate("Trust & Safety", language)}</MenuItem></Link>
+              <Link to="/sustainability"><MenuItem _hover={{ bg: menuItemHoverBg }}>{translate("Sustainability", language)}</MenuItem></Link>
             </MenuList>
           </Menu>
 
-          <Link to="/dashboard">
-            <Button w="100%" variant="ghost" color="white">Dashboard</Button>
-          </Link>
-
-          <Link to="/login">
-            <Button w="100%" variant="outline" mt={2} color="white" borderColor="white">
-              Login
-            </Button>
-          </Link>
-
-          <Link to="/signup">
-            <Button
-              w="100%"
-              mt={2}
-              variant="solid"
-              color="teal.500"
-              bg="white"
-              _hover={{ bg: "gray.200" }}
-            >
-              Signup
-            </Button>
-          </Link>
+          <Link to="/dashboard"><Button w="100%" variant="ghost" color="white">{translate("Dashboard", language)}</Button></Link>
+          <Link to="/login"><Button w="100%" variant="outline" mt={2} color="white" borderColor="white">{translate("Login", language)}</Button></Link>
+          <Link to="/signup"><Button w="100%" mt={2} variant="solid" color="teal.500" bg="white" _hover={{ bg: "gray.200" }}>{translate("Signup", language)}</Button></Link>
         </Box>
       </Collapse>
-
-      {/* CENTERED APP NAME */}
-      <Box
-        position="absolute"
-        top="50%"
-        left="50%"
-        transform="translate(-50%, -50%)"
-        pointerEvents="none"
-        display={{ base: "none", md: "block" }}
-      >
-        <Link to="/" style={{ textDecoration: "none", pointerEvents: "auto" }}>
-          <Text
-            fontFamily="'Bevan', cursive"
-            fontSize="3xl"
-            fontWeight="bold"
-            textShadow="0 2px 4px rgba(0,0,0,0.3)"
-            cursor="pointer"
-            _hover={{ transform: "scale(1.05)" }}
-            transition="0.2s"
-          >
-            <span style={{ color: "azure" }}>Hop</span>
-            <span style={{ color: "black" }}>In</span>
-          </Text>
-        </Link>
-      </Box>
     </Box>
   );
 }
