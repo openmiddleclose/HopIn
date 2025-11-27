@@ -49,9 +49,10 @@ export default function Navbar() {
         maxW="1200px"
         mx="auto"
       >
-        {/* LEFT — LOGO */}
-        <Flex align="center">
-          <Link to="/">
+        {/* LEFT — Logo on desktop, HopIn text on mobile */}
+        <Flex align="center" gap={2}>
+          <Link to="/" style={{ display: "flex", alignItems: "center" }}>
+            {/* Desktop Logo */}
             <Image
               src="/images/bunny-logo.png"
               alt="App Logo"
@@ -66,11 +67,22 @@ export default function Navbar() {
                 transform: "scale(1.1)",
                 boxShadow: "0 0 18px rgba(255,255,255,0.9)",
               }}
+              display={{ base: "none", md: "block" }}
             />
+            {/* Mobile HopIn text */}
+            <Text
+              fontFamily="'Bevan', cursive"
+              fontSize="2xl"
+              fontWeight="bold"
+              display={{ base: "block", md: "none" }}
+            >
+              <span style={{ color: "azure" }}>Hop</span>
+              <span style={{ color: "black" }}>In</span>
+            </Text>
           </Link>
         </Flex>
 
-        {/* CENTER — HopIn TEXT ALWAYS VISIBLE */}
+        {/* CENTER — HopIn text always visible */}
         <Flex flex="1" justify="center" px={4} minW={{ base: 0, md: "auto" }}>
           <Link to="/" style={{ textDecoration: "none" }}>
             <Text
@@ -90,7 +102,7 @@ export default function Navbar() {
           </Link>
         </Flex>
 
-        {/* RIGHT — FULL NAV DESKTOP */}
+        {/* RIGHT — Full desktop nav */}
         <Flex align="center" display={{ base: "none", md: "flex" }} gap={4}>
           <Link to="/"><Button variant="ghost" color="white">{translate("Home", language)}</Button></Link>
           <Link to="/search-trips"><Button variant="ghost" color="white">{translate("Search Trips", language)}</Button></Link>
@@ -115,7 +127,7 @@ export default function Navbar() {
           <Link to="/signup"><Button variant="solid" color="teal.500" bg="white" _hover={{ bg: "gray.200" }}>{translate("Signup", language)}</Button></Link>
         </Flex>
 
-        {/* MOBILE HAMBURGER */}
+        {/* MOBILE HAMBURGER — aligned right of mobile HopIn text */}
         <IconButton
           display={{ base: "flex", md: "none" }}
           icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
@@ -124,6 +136,7 @@ export default function Navbar() {
           color="white"
           borderColor="white"
           aria-label="Toggle navigation"
+          ml="auto" // pushes hamburger to far right
         />
       </Flex>
 
