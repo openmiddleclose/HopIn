@@ -69,6 +69,7 @@ export default function Navbar() {
               }}
               display={{ base: "none", md: "block" }}
             />
+
             {/* Mobile HopIn text */}
             <Text
               fontFamily="'Bevan', cursive"
@@ -82,27 +83,7 @@ export default function Navbar() {
           </Link>
         </Flex>
 
-        {/* CENTER — HopIn text always visible */}
-        <Flex flex="1" justify="center" px={4} minW={{ base: 0, md: "auto" }}>
-          <Link to="/" style={{ textDecoration: "none" }}>
-            <Text
-              fontFamily="'Bevan', cursive"
-              fontSize={{ base: "2xl", md: "3xl" }}
-              fontWeight="bold"
-              textAlign="center"
-              whiteSpace="nowrap"
-              overflow="hidden"
-              textOverflow="ellipsis"
-              textShadow="0 2px 4px rgba(0,0,0,0.3)"
-              cursor="pointer"
-            >
-              <span style={{ color: "azure" }}>Hop</span>
-              <span style={{ color: "black" }}>In</span>
-            </Text>
-          </Link>
-        </Flex>
-
-        {/* RIGHT — Full desktop nav */}
+        {/* RIGHT — Desktop Nav */}
         <Flex align="center" display={{ base: "none", md: "flex" }} gap={4}>
           <Link to="/"><Button variant="ghost" color="white">{translate("Home", language)}</Button></Link>
           <Link to="/search-trips"><Button variant="ghost" color="white">{translate("Search Trips", language)}</Button></Link>
@@ -127,7 +108,7 @@ export default function Navbar() {
           <Link to="/signup"><Button variant="solid" color="teal.500" bg="white" _hover={{ bg: "gray.200" }}>{translate("Signup", language)}</Button></Link>
         </Flex>
 
-        {/* MOBILE HAMBURGER — aligned right of mobile HopIn text */}
+        {/* MOBILE HAMBURGER — aligned right */}
         <IconButton
           display={{ base: "flex", md: "none" }}
           icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
@@ -136,7 +117,7 @@ export default function Navbar() {
           color="white"
           borderColor="white"
           aria-label="Toggle navigation"
-          ml="auto" // pushes hamburger to far right
+          ml="auto"
         />
       </Flex>
 
