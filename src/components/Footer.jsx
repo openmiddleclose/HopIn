@@ -30,6 +30,15 @@ export default function Footer() {
 
   const { language, setLanguage } = useLanguage();
 
+  // Social media links
+  const socialLinks = [
+    { icon: FaFacebook, url: "https://facebook.com" },
+    { icon: FaTwitter, url: "https://x.com" },
+    { icon: FaInstagram, url: "https://instagram.com" },
+    { icon: FaLinkedin, url: "https://linkedin.com" },
+    { icon: FaTiktok, url: "https://tiktok.com" },
+  ];
+
   return (
     <Box
       bg={bg}
@@ -100,26 +109,27 @@ export default function Footer() {
             {translate("Connect with us", language)}
           </Text>
 
+          {/* Social Icons */}
           <HStack spacing={4}>
-            {[FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaTiktok].map(
-              (Icon, idx) => (
-                <IconButton
-                  key={idx}
-                  as="a"
-                  href="#"
-                  icon={<Icon />}
-                  aria-label="icon"
-                  variant="ghost"
-                  color="gray.300"
-                  fontSize="xl"
-                  _hover={{
-                    color: "white",
-                    transform: "scale(1.2)",
-                    transition: "0.2s",
-                  }}
-                />
-              )
-            )}
+            {socialLinks.map(({ icon: Icon, url }, idx) => (
+              <IconButton
+                key={idx}
+                as="a"
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                icon={<Icon />}
+                aria-label="social-icon"
+                variant="ghost"
+                color="gray.300"
+                fontSize="xl"
+                _hover={{
+                  color: "white",
+                  transform: "scale(1.2)",
+                  transition: "0.2s",
+                }}
+              />
+            ))}
           </HStack>
 
           {/* Language selector */}
