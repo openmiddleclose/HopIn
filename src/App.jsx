@@ -35,6 +35,11 @@ import TermsOfService from "./pages/TermsOfService.jsx";
 import DriverCancellationPolicy from "./pages/DriverCancellationPolicy.jsx";
 import PassengerGuidelines from "./pages/PassengerGuidelines.jsx";
 
+// New pages
+import Careers from "./pages/Careers.jsx";
+import HelpCenter from "./pages/HelpCenter.jsx";
+import DownloadApp from "./pages/DownloadApp.jsx";
+
 // -------- Protected User Route --------
 function ProtectedUserRoute({ children }) {
   const [userProfile, setUserProfile] = React.useState(null);
@@ -151,7 +156,7 @@ export default function App() {
         <Route path="/search-trips" element={<SearchTrips />} />
         <Route path="/trip/:id" element={<TripDetail />} />
 
-        {/* Other Pages */}
+        {/* Pages */}
         <Route path="/drivers" element={<Drivers />} />
         <Route path="/passengers" element={<Passengers />} />
         <Route path="/students" element={<Students />} />
@@ -165,10 +170,14 @@ export default function App() {
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/terms-of-service" element={<TermsOfService />} />
         <Route path="/driver-cancellation" element={<DriverCancellationPolicy />} />
+
+        {/* NEW Pages */}
+        <Route path="/careers" element={<Careers />} />
+        <Route path="/help" element={<HelpCenter />} />
+        <Route path="/download" element={<DownloadApp />} />
       </Routes>
 
       <Footer />
-
       <SupportChat tripId={null} />
     </LanguageProvider>
   );

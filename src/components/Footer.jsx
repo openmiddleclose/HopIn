@@ -6,7 +6,6 @@ import {
   VStack,
   HStack,
   Text,
-  Link,
   IconButton,
   Divider,
   Select,
@@ -19,6 +18,7 @@ import {
   FaLinkedin,
   FaTiktok,
 } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import { useLanguage } from "../contexts/LanguageContext.jsx";
 import { translate } from "../utils/translate.js";
 
@@ -54,17 +54,20 @@ export default function Footer() {
             HopIn
           </Text>
 
-          <Link href="#" _hover={{ color: "white" }}>
-            {translate("We're hiring!", language)}
+          <Link to="/careers">
+            <Text _hover={{ color: "white" }}>{translate("We're hiring!", language)}</Text>
           </Link>
-          <Link href="#" _hover={{ color: "white" }}>
-            {translate("Download our app", language)}
+
+          <Link to="/download">
+            <Text _hover={{ color: "white" }}>{translate("Download our app", language)}</Text>
           </Link>
-          <Link href="/signup" _hover={{ color: "white" }}>
-            {translate("Sign up", language)}
+
+          <Link to="/signup">
+            <Text _hover={{ color: "white" }}>{translate("Sign up", language)}</Text>
           </Link>
-          <Link href="/login" _hover={{ color: "white" }}>
-            {translate("Log in", language)}
+
+          <Link to="/login">
+            <Text _hover={{ color: "white" }}>{translate("Log in", language)}</Text>
           </Link>
         </VStack>
 
@@ -74,20 +77,20 @@ export default function Footer() {
             {translate("How it works", language)}
           </Text>
 
-          <Link href="/passengers" _hover={{ color: "white" }}>
-            {translate("Passengers", language)}
+          <Link to="/passengers">
+            <Text _hover={{ color: "white" }}>{translate("Passengers", language)}</Text>
           </Link>
 
-          <Link href="/drivers" _hover={{ color: "white" }}>
-            {translate("Drivers", language)}
+          <Link to="/drivers">
+            <Text _hover={{ color: "white" }}>{translate("Drivers", language)}</Text>
           </Link>
 
-          <Link href="/trust-and-safety" _hover={{ color: "white" }}>
-            {translate("Trust & Safety", language)}
+          <Link to="/trust-and-safety">
+            <Text _hover={{ color: "white" }}>{translate("Trust & Safety", language)}</Text>
           </Link>
 
-          <Link href="/students" _hover={{ color: "white" }}>
-            {translate("For Students", language)}
+          <Link to="/students">
+            <Text _hover={{ color: "white" }}>{translate("For Students", language)}</Text>
           </Link>
         </VStack>
 
@@ -109,7 +112,11 @@ export default function Footer() {
                   variant="ghost"
                   color="gray.300"
                   fontSize="xl"
-                  _hover={{ color: "white", transform: "scale(1.2)", transition: "0.2s" }}
+                  _hover={{
+                    color: "white",
+                    transform: "scale(1.2)",
+                    transition: "0.2s",
+                  }}
                 />
               )
             )}
@@ -143,19 +150,28 @@ export default function Footer() {
         gap={{ base: 4, md: 0 }}
         textAlign={{ base: "center", md: "left" }}
       >
-        <Text>© {new Date().getFullYear()} HopIn. {translate("All rights reserved.", language)}</Text>
+        <Text>
+          © {new Date().getFullYear()} HopIn.{" "}
+          {translate("All rights reserved.", language)}
+        </Text>
 
         <HStack spacing={6}>
-          <Link href="/privacy-policy" _hover={{ color: "white" }}>
-            {translate("Privacy Policy", language)}
+          <Link to="/privacy-policy">
+            <Text _hover={{ color: "white" }}>
+              {translate("Privacy Policy", language)}
+            </Text>
           </Link>
 
-          <Link href="/terms-of-service" _hover={{ color: "white" }}>
-            {translate("Terms of Service", language)}
+          <Link to="/terms-of-service">
+            <Text _hover={{ color: "white" }}>
+              {translate("Terms of Service", language)}
+            </Text>
           </Link>
 
-          <Link href="/help" _hover={{ color: "white" }}>
-            {translate("Help Center", language)}
+          <Link to="/help-center">
+            <Text _hover={{ color: "white" }}>
+              {translate("Help Center", language)}
+            </Text>
           </Link>
         </HStack>
       </Flex>
