@@ -10,6 +10,7 @@ import {
   Text,
   Flex,
   Divider,
+  Checkbox,
   useColorModeValue,
   useToast,
 } from "@chakra-ui/react";
@@ -21,6 +22,7 @@ export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [acceptTerms, setAcceptTerms] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -37,17 +39,28 @@ export default function Signup() {
       });
     }
 
+    // Check terms acceptance
+    if (!acceptTerms) {
+      return toast({
+        title: "Accept Terms Required",
+        description: "Please accept the Terms of Service and Privacy Policy.",
+        status: "error",
+        duration: 4500,
+        isClosable: true,
+      });
+    }
+
     setLoading(true);
 
     try {
-      // Sign up user with Supabase
+      // Sign up user
       const { data, error } = await supabase.auth.signUp(
         { email, password },
-        { redirectTo: `${window.location.origin}/login` } // Optional auto-redirect after email verification
+        { redirectTo: `${window.location.origin}/login` }
       );
       if (error) throw error;
 
-      // Insert profile into database
+      // Insert profile info
       const { error: profileError } = await supabase.from("profiles").insert([
         {
           id: data.user.id,
@@ -56,12 +69,11 @@ export default function Signup() {
           full_name: `${firstName} ${lastName}`,
           email,
           is_admin: false,
-          onboarding_complete: false, // Set onboarding as incomplete
+          onboarding_complete: false,
         },
       ]);
       if (profileError) throw profileError;
 
-      // Notify user to verify email
       toast({
         title: "Account created!",
         description: "Please check your email to verify your account.",
@@ -70,7 +82,6 @@ export default function Signup() {
         isClosable: true,
       });
 
-      // Redirect to verify email page
       navigate("/verify-email", { state: { email } });
 
     } catch (err) {
@@ -87,7 +98,13 @@ export default function Signup() {
   };
 
   return (
-    <Flex justify="center" align="center" minH="calc(100vh - 80px)" px={4} bg={useColorModeValue("gray.50", "gray.900")}>
+    <Flex
+      justify="center"
+      align="center"
+      minH="calc(100vh - 80px)"
+      px={4}
+      bg={useColorModeValue("gray.50", "gray.900")}
+    >
       <Box
         w="100%"
         maxW="420px"
@@ -137,6 +154,22 @@ export default function Signup() {
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
+
+          {/* Terms of service checkbox */}
+          <Checkbox
+            isChecked={acceptTerms}
+            onChange={(e) => setAcceptTerms(e.target.checked)}
+            colorScheme="teal"
+          >
+            I agree to the{" "}
+            <Link to="/terms-of-service" style={{ color: "#319795", fontWeight: 600 }}>
+              Terms of Service
+            </Link>{" "}
+            and{" "}
+            <Link to="/privacy-policy" style={{ color: "#319795", fontWeight: 600 }}>
+              Privacy Policy
+            </Link>.
+          </Checkbox>
 
           <Button
             colorScheme="teal"
